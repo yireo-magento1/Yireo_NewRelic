@@ -1,4 +1,4 @@
-Magento module for New Relic
+Magento module for New Relic &copy;
 ================================
 Homepage: http://www.yireo.com/software/magento-extensions/newrelic
 
