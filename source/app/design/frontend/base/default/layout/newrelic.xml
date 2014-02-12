@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<layout>
+    <default>
+        <reference name="head">
+            <block type="newrelic/rum_timing_header" name="newrelic_rum_timing_header" as="newrelic.rum.timing.header" template="newrelic/rum/timing/content.phtml" />
+        </reference>
+        <reference name="before_body_end">
+            <block type="newrelic/rum_timing_footer" name="newrelic_rum_timing_footer" as="newrelic.rum.timing.footer" template="newrelic/rum/timing/content.phtml" after="-" />
+        </reference>
+    </default>
+</layout>
