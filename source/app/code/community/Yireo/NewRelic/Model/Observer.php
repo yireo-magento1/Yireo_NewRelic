@@ -138,7 +138,7 @@ class Yireo_NewRelic_Model_Observer
      */
     public function modelSaveAfter($observer) 
     {
-        if ($this->_isEnabled()) {
+        if (!$this->_isEnabled()) {
             return $this;
         }
 
