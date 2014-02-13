@@ -5,7 +5,7 @@
  * @package     Yireo_NewRelic
  * @author      Yireo (http://www.yireo.com/)
  * @copyright   Copyright (C) 2014 Yireo (http://www.yireo.com/)
- * @license     Open Source License
+ * @license     BSD 2-Clause
  */
 
 class Yireo_NewRelic_Model_Observer 

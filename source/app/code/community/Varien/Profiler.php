@@ -5,7 +5,7 @@
  * @package     Yireo_NewRelic
  * @author      Yireo
  * @copyright   Copyright (C) 2014 Yireo (http://www.yireo.com/)
- * @license     Open Software License
+ * @license     BSD 2-Clause
  */
 
 if(class_exists('Yireo_NewRelic_Model_Profiler')) {
