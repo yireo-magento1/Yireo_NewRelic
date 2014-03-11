@@ -5,7 +5,7 @@
  * @package     Yireo_NewRelic
  * @author      Yireo (http://www.yireo.com/)
  * @copyright   Copyright (C) 2014 Yireo (http://www.yireo.com/)
- * @license     BSD 2-Clause
+ * @license     Simplified BSD License
  */
 
 class Yireo_NewRelic_Model_Observer 
@@ -138,7 +138,7 @@ class Yireo_NewRelic_Model_Observer
      */
     public function modelSaveAfter($observer) 
     {
-        if (!$this->_isEnabled()) {
+        if ($this->_isEnabled()) {
             return $this;
         }
 

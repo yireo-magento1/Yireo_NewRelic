@@ -6,7 +6,7 @@
  * @package     Yireo_NewRelic
  * @author      Yireo
  * @copyright   Copyright (C) 2014 Yireo (http://www.yireo.com/)
- * @license     BSD 2-Clause
+ * @license     Simplified BSD License
  */
 -->
 <config>
@@ -57,7 +57,7 @@
                         </license>
                         <xmit translate="label">
                             <label>Use xmit</label>
-                            <comment><![CDATA[Use xmit on newrelic_set_appname()<br/>
+                            <comment><![CDATA[Use xmit on 'newrelic_set_appname<br/>
 Warning: This gives a slight performance overhead - check the NewRelic docs for details]]></comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
