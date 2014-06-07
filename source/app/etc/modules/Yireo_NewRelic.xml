@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Yireo NewRelic-module for Magento 
+ *
+ * @package     Yireo_NewRelic
+ * @author      Yireo (http://www.yireo.com/)
+ * @copyright   Copyright (c) 2013 Yireo (http://www.yireo.com/)
+ * @license     Simplified BSD License
+ */
+-->
+<config>
+    <modules>
+        <Yireo_NewRelic>
+            <active>true</active>
+            <codePool>community</codePool>
+        </Yireo_NewRelic>
+    </modules>
+</config>

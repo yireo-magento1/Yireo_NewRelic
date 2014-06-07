@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * NewRelic plugin for Magento
+ *
+ * @package     Yireo_NewRelic
+ * @author      Yireo
+ * @copyright   Copyright (C) 2014 Yireo (http://www.yireo.com/)
+ * @license     Simplified BSD License
+ */
+-->
+<config>
+    <modules>
+        <Yireo_NewRelic>
+            <version>1.2.1</version>
+        </Yireo_NewRelic>
+    </modules>
+
+    <global>
+        <blocks>
+            <newrelic>
+                <class>Yireo_NewRelic_Block</class>
+            </newrelic>
+        </blocks>
+        <helpers>
+            <newrelic>
+                <class>Yireo_NewRelic_Helper</class>
+            </newrelic>
+        </helpers>
+        <models>
+            <newrelic>
+                <class>Yireo_NewRelic_Model</class>
+            </newrelic>
+        </models>
+    </global>
+
+    <frontend>
+        <events>
+            <controller_action_predispatch>
+                <observers>
+                    <magebridge_controller_action_predispatch>
+                        <type>singleton</type>
+                        <class>newrelic/observer</class>
+                        <method>controllerActionPredispatch</method>
+                    </magebridge_controller_action_predispatch>
+                </observers>
+            </controller_action_predispatch>
+
+            <controller_action_postdispatch>
+                <observers>
+                    <newrelic_controller_action_postdispatch>
+                        <type>singleton</type>
+                        <class>newrelic/observer</class>
+                        <method>controllerActionPostdispatch</method>
+                    </newrelic_controller_action_postdispatch>
+                </observers>
+            </controller_action_postdispatch>
+
+            <model_save_after>
+                <observers>
+                    <newrelic_model_save_after>
+                        <type>singleton</type>
+                        <class>Yireo_NewRelic_Model_Observer</class>
+                        <method>modelSaveAfter</method>
+                    </newrelic_model_save_after>
+                </observers>
+            </model_save_after>
+
+            <model_delete_after>
+                <observers>
+                    <newrelic_model_delete_after>
+                        <type>singleton</type>
+                        <class>Yireo_NewRelic_Model_Observer</class>
+                        <method>modelDeleteAfter</method>
+                    </newrelic_model_delete_after>
+                </observers>
+            </model_delete_after>
+        </events>
+
+        <layout>
+            <updates>
+                <newrelic module="newrelic">
+                    <file>newrelic.xml</file>
+                </newrelic>
+            </updates>
+        </layout>
+    </frontend>
+
+    <adminhtml>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <newrelic translate="title" module="newrelic">
+                                            <title>NewRelic</title>
+                                        </newrelic>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+
+    <default>
+        <newrelic>
+            <settings>
+                <enabled>1</enabled>
+                <track_controller>1</track_controller>
+                <real_user_monitoring>0</real_user_monitoring>
+                <xmit>1</xmit>
+            </settings>
+        </newrelic>
+    </default>
+</config>

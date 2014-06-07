@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * NewRelic plugin for Magento
+ *
+ * @package     Yireo_NewRelic
+ * @author      Yireo
+ * @copyright   Copyright (C) 2014 Yireo (http://www.yireo.com/)
+ * @license     Simplified BSD License
+ */
+-->
+<config>
+    <sections>
+        <newrelic translate="label" module="newrelic">
+            <label>New Relic</label>
+            <tab>advanced</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>342</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <settings translate="label">
+                    <label>Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled translate="label">
+                            <label>Enable</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+                        <appname translate="label">
+                            <label>Application Name</label>
+                            <comment><![CDATA[Appears in New Relic application-overview]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </appname>
+                        <license translate="label">
+                            <label>License Key</label>
+                            <comment><![CDATA[Override of New Relic license-key]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </license>
+                        <xmit translate="label">
+                            <label>Use xmit</label>
+                            <comment><![CDATA[Use xmit on 'newrelic_set_appname<br/>
+Warning: This gives a slight performance overhead - check the NewRelic docs for details]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </xmit>
+                        <track_controller translate="label">
+                            <label>Track Controllers</label>
+                            <comment><![CDATA[Track the controllers as transactions.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_store>1</show_in_store>
+                            <show_in_default>1</show_in_default>
+                        </track_controller>
+                        <real_user_monitoring translate="label">
+                            <label>Real User Monitoring</label>
+                            <comment><![CDATA[Enable when your New Relic subscription includes this feature]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </real_user_monitoring>
+                    </fields>
+                </settings>
+            </groups>
+        </newrelic>
+    </sections>
+</config>
