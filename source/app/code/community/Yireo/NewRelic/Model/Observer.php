@@ -146,7 +146,7 @@ class Yireo_NewRelic_Model_Observer
             return $this;
         }
         $object = $observer->getEvent()->getObject();
-        newrelic_custom_metric('Magento/' . get_class($object) . '_Save', 1);
+        newrelic_custom_metric('Magento/' . get_class($object) . '_Save', (float)1.0);
 
         return $this;
     }
@@ -169,7 +169,7 @@ class Yireo_NewRelic_Model_Observer
         }
 
         $object = $observer->getEvent()->getObject();
-        newrelic_custom_metric('Magento/' . get_class($object) . '_Delete', 1);
+        newrelic_custom_metric('Magento/' . get_class($object) . '_Delete', (float)1.0);
 
         return $this;
     }
