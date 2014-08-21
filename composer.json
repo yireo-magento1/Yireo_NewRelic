@@ -2,7 +2,7 @@
     "name": "yireo/yireo_newrelic",
     "license": "OSL-3.0",
     "type": "magento-module",
-    "homepage": "https://www.yireo.com/software/magento-extensions/webp",
+    "homepage": "https://www.yireo.com/software/magento-extensions/newrelic",
     "description": "Add NewRelic JS support and PHP tracking to Magento",
     "keywords":[ "composer-installer", "magento"],
     "authors": [
