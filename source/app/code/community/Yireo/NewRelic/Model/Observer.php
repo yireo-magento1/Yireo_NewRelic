@@ -26,8 +26,17 @@ class Yireo_NewRelic_Model_Observer
         $this->_setupAppName();
         $this->_trackControllerAction($observer->getEvent()->getControllerAction());
 
+        // Ignore Apdex for Magento Admin Panel pages
+        if (Mage::app()->getStore()->isAdmin()) {
+            if(function_exists('newrelic_ignore_apdex')) {
+                newrelic_ignore_apdex();
+            }
+        }
+
         // Common settings
-        newrelic_capture_params(true);
+        if(function_exists('newrelic_capture_params')) {
+            newrelic_capture_params(true);
+        }
 
         return $this;
     }
