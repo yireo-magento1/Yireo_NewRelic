@@ -206,4 +206,18 @@ class Yireo_NewRelic_Model_Observer
     {
         return Mage::helper('newrelic');
     }
+
+    /**
+     * Listen to the cron event always
+     *
+     * @access public
+     * @param Varien_Event_Observer $observer
+     * @return $this
+     */
+    public function crontab($observer) 
+    {
+        if(function_exists('newrelic_background_job')) {
+            newrelic_background_job(true);
+        }
+    }
 }

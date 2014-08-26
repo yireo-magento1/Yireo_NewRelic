@@ -108,6 +108,19 @@
         </acl>
     </adminhtml>
 
+    <crontab>
+        <events>
+            <always>
+                <observers>
+                    <newrelic_cron_observer>
+                        <class>newrelic/observer</class>
+                        <method>crontab</method>
+                    </newrelic_cron_observer>
+                </observers>
+            </always>
+        </events>
+    </crontab>
+
     <default>
         <newrelic>
             <settings>
