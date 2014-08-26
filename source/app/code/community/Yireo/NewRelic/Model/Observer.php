@@ -11,6 +11,123 @@
 class Yireo_NewRelic_Model_Observer 
 {
     /**
+     * Listen to the event adminhtml_cache_flush_all
+     *
+     * @access public
+     * @param Varien_Event_Observer $observer
+     * @return $this
+     */
+    public function adminhtmlCacheFlushAll($observer) 
+    {
+        if (!$this->_isEnabled()) {
+            return $this;
+        }
+        
+        newrelic_custom_metric('Magento/Event/adminhtmlCacheFlushAll', (float)1.0);
+        return $this;
+    }
+
+    /**
+     * Listen to the event adminhtml_cache_flush_system
+     *
+     * @access public
+     * @param Varien_Event_Observer $observer
+     * @return $this
+     */
+    public function adminhtmlCacheFlushSystem($observer) 
+    {
+        if (!$this->_isEnabled()) {
+            return $this;
+        }
+        
+        newrelic_custom_metric('Magento/Event/adminhtmlCacheFlushSystem', (float)1.0);
+        return $this;
+    }
+
+    /**
+     * Listen to the event adminhtml_cache_refresh_type
+     *
+     * @access public
+     * @param Varien_Event_Observer $observer
+     * @return $this
+     */
+    public function adminhtmlCacheRefreshType($observer) 
+    {
+        if (!$this->_isEnabled()) {
+            return $this;
+        }
+        
+        $event = $observer->getEvent();
+        $refreshType = $event->getType();
+        newrelic_custom_metric('Magento/Event/adminhtmlCacheRefreshType:'.$refreshType, (float)1.0);
+        return $this;
+    }
+
+    /**
+     * Listen to the event controller_action_postdispatch_adminhtml_process_reindexProcess
+     *
+     * @access public
+     * @param Varien_Event_Observer $observer
+     * @return $this
+     */
+    public function controllerActionPostdispatchAdminhtmlProcessReindexProcess($observer) 
+    {
+        if (!$this->_isEnabled()) {
+            return $this;
+        }
+        
+        $processIds = (array)Mage::app()->getRequest()->getParam('process');
+        if (!empty($processIds) && is_array($processIds)) {
+            try {
+                $indexer = Mage::getSingleton('index/indexer');
+                foreach ($processIds as $processId) {
+                    $process = $indexer->getProcessById($processId);
+                    $indexerCode = $process->getIndexerCode();
+                    newrelic_custom_metric('Magento/Event/reindex:'.$indexerCode, (float)1.0);
+                }
+
+            } catch (Exception $e) {
+                Mage::logException($e);
+                return $this;
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Listen to the event controller_action_postdispatch_adminhtml_process_massReindex
+     *
+     * @access public
+     * @param Varien_Event_Observer $observer
+     * @return $this
+     */
+    public function controllerActionPostdispatchAdminhtmlProcessMassReindex($observer) 
+    {
+        if (!$this->_isEnabled()) {
+            return $this;
+        }
+
+        $processIds = (array)Mage::app()->getRequest()->getParam('process');
+        if (!empty($processIds) && is_array($processIds)) {
+            try {
+                $indexer = Mage::getSingleton('index/indexer');
+                foreach ($processIds as $processId) {
+                    $process = $indexer->getProcessById($processId);
+                    $indexerCode = $process->getIndexerCode();
+                    newrelic_custom_metric('Magento/Event/reindex:'.$indexerCode, (float)1.0);
+                }
+
+            } catch (Exception $e) {
+                Mage::logException($e);
+                return $this;
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * Listen to the event controller_action_predispatch
      *
      * @access public

@@ -32,17 +32,63 @@
                 <class>Yireo_NewRelic_Model</class>
             </newrelic>
         </models>
-    </global>
 
-    <frontend>
         <events>
+            <adminhtml_cache_flush_all>
+                <observers>
+                    <newrelic_adminhtml_cache_flush_all>
+                        <type>singleton</type>
+                        <class>newrelic/observer</class>
+                        <method>adminhtmlCacheFlushAll</method>
+                    </newrelic_adminhtml_cache_flush_all>
+                </observers>
+            </adminhtml_cache_flush_all>
+
+            <adminhtml_cache_flush_system>
+                <observers>
+                    <newrelic_adminhtml_cache_flush_system>
+                        <type>singleton</type>
+                        <class>newrelic/observer</class>
+                        <method>adminhtmlCacheFlushSystem</method>
+                    </newrelic_adminhtml_cache_flush_system>
+                </observers>
+            </adminhtml_cache_flush_system>
+
+            <adminhtml_cache_refresh_type>
+                <observers>
+                    <newrelic_adminhtml_cache_refresh_type>
+                        <type>singleton</type>
+                        <class>newrelic/observer</class>
+                        <method>adminhtmlCacheRefreshType</method>
+                    </newrelic_adminhtml_cache_refresh_type>
+                </observers>
+            </adminhtml_cache_refresh_type>
+
+            <controller_action_postdispatch_adminhtml_process_massReindex>
+                <observers>
+                    <newrelic_controller_action_postdispatch_adminhtml_process_massReindex>
+                        <class>newrelic/observer</class>
+                        <method>controllerActionPostdispatchAdminhtmlProcessMassReindex</method>
+                    </newrelic_controller_action_postdispatch_adminhtml_process_massReindex>
+                </observers>
+            </controller_action_postdispatch_adminhtml_process_massReindex>
+
+            <controller_action_postdispatch_adminhtml_process_reindexProcess>
+                <observers>
+                    <newrelic_controller_action_postdispatch_adminhtml_process_reindexProcess>
+                        <class>newrelic/observer</class>
+                        <method>controllerActionPostdispatchAdminhtmlProcessReindexProcess</method>
+                    </newrelic_controller_action_postdispatch_adminhtml_process_reindexProcess>
+                </observers>
+            </controller_action_postdispatch_adminhtml_process_reindexProcess>
+
             <controller_action_predispatch>
                 <observers>
-                    <magebridge_controller_action_predispatch>
+                    <newrelic_controller_action_predispatch>
                         <type>singleton</type>
                         <class>newrelic/observer</class>
                         <method>controllerActionPredispatch</method>
-                    </magebridge_controller_action_predispatch>
+                    </newrelic_controller_action_predispatch>
                 </observers>
             </controller_action_predispatch>
 
@@ -76,7 +122,9 @@
                 </observers>
             </model_delete_after>
         </events>
+    </global>
 
+    <frontend>
         <layout>
             <updates>
                 <newrelic module="newrelic">
