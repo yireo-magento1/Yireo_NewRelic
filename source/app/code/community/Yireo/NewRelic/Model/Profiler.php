@@ -1,6 +1,6 @@
 <?php
 /**
- * NewRelic plugin for Magento 
+ * NewRelic plugin for Magento
  *
  * @package     Yireo_NewRelic
  * @author      Yireo (http://www.yireo.com/)
@@ -61,7 +61,7 @@ class Yireo_NewRelic_Model_Profiler
 
     /*
      * Below is a copy of the original Varien_Profiler class
-     * with one exception: the init() method is called from within enable()
+     * with one exception: the init() method is called from within resume() and pause()
      */
 
     /**
@@ -124,7 +124,7 @@ class Yireo_NewRelic_Model_Profiler
         if (!self::$_enabled) {
             return;
         }
-        
+
         self::init();
 
         $time = microtime(true); // Get current time as quick as possible to make more accurate calculations
@@ -195,7 +195,7 @@ class Yireo_NewRelic_Model_Profiler
      * Output SQl Zend_Db_Profiler
      *
      */
-    public static function getSqlProfiler($res) 
+    public static function getSqlProfiler($res)
     {
         if(!$res){
             return '';
