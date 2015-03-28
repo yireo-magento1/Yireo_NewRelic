@@ -4,7 +4,7 @@
  *
  * @package     Yireo_NewRelic
  * @author      Yireo
- * @copyright   Copyright (c) 2013 Yireo (http://www.yireo.com/)
+ * @copyright   Copyright 2015 Yireo (http://www.yireo.com/)
  * @license     Open Software License
  */
 
