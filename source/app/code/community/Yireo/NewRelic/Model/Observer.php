@@ -209,8 +209,7 @@ class Yireo_NewRelic_Model_Observer
      */
     public function controllerActionPostdispatch($observer) 
     {
-        if (!$this->_isEnabled()
-                || !$this->_getHelper()->isUseRUM()){
+        if (!$this->_isEnabled()) {
             return $this;
         }
 
