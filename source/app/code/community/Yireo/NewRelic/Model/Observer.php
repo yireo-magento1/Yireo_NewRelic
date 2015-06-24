@@ -250,7 +250,9 @@ class Yireo_NewRelic_Model_Observer
         }
 
         // Set user attributes
-        newrelic_set_user_attributes($customerEmail, $customerName, $productSku);
+        if ($this->_getHelper()->isUseRUM()) {
+            newrelic_set_user_attributes($customerEmail, $customerName, $productSku);
+        }
 
         return $this;
     }
