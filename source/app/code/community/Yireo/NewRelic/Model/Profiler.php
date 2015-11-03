@@ -13,9 +13,6 @@ class Yireo_NewRelic_Model_Profiler
     /**
      * Method to initialize the profiler
      *
-     * @access public
-     * @param null
-     * @return null
      */
     public static function init()
     {
@@ -59,7 +56,7 @@ class Yireo_NewRelic_Model_Profiler
         }
     }
 
-    /*
+    /**
      * Below is a copy of the original Varien_Profiler class
      * with one exception: the init() method is called from within resume() and pause()
      */

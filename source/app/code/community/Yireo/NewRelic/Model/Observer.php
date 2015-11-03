@@ -13,7 +13,6 @@ class Yireo_NewRelic_Model_Observer
     /**
      * Listen to the event adminhtml_cache_flush_all
      *
-     * @access public
      * @param Varien_Event_Observer $observer
      * @return $this
      */
@@ -30,7 +29,6 @@ class Yireo_NewRelic_Model_Observer
     /**
      * Listen to the event adminhtml_cache_flush_system
      *
-     * @access public
      * @param Varien_Event_Observer $observer
      * @return $this
      */
@@ -47,7 +45,6 @@ class Yireo_NewRelic_Model_Observer
     /**
      * Listen to the event adminhtml_cache_refresh_type
      *
-     * @access public
      * @param Varien_Event_Observer $observer
      * @return $this
      */
@@ -66,7 +63,6 @@ class Yireo_NewRelic_Model_Observer
     /**
      * Listen to the event controller_action_postdispatch_adminhtml_process_reindexProcess
      *
-     * @access public
      * @param Varien_Event_Observer $observer
      * @return $this
      */
@@ -98,7 +94,6 @@ class Yireo_NewRelic_Model_Observer
     /**
      * Listen to the event controller_action_postdispatch_adminhtml_process_massReindex
      *
-     * @access public
      * @param Varien_Event_Observer $observer
      * @return $this
      */
@@ -130,7 +125,6 @@ class Yireo_NewRelic_Model_Observer
     /**
      * Listen to the event controller_action_predispatch
      *
-     * @access public
      * @param Varien_Event_Observer $observer
      * @return $this
      */
@@ -161,8 +155,6 @@ class Yireo_NewRelic_Model_Observer
     /**
      * Method to setup the app-name
      *
-     * @access public
-     * @param null
      * @return $this
      */
     protected function _setupAppName() 
@@ -182,7 +174,6 @@ class Yireo_NewRelic_Model_Observer
     /**
      * Method to track the controller-action
      *
-     * @access public
      * @param Mage_Core_Controller_Front_Action $action
      * @return $this
      */
@@ -203,7 +194,6 @@ class Yireo_NewRelic_Model_Observer
     /**
      * Post dispatch observer for user tracking
      *
-     * @access public
      * @param Varien_Event_Observer $observer
      * @return $this
      */
@@ -259,7 +249,6 @@ class Yireo_NewRelic_Model_Observer
     /**
      * Listen to the event model_save_after
      *
-     * @access public
      * @param Varien_Event_Observer $observer
      * @return $this
      */
@@ -281,7 +270,6 @@ class Yireo_NewRelic_Model_Observer
     /**
      * Listen to the event model_delete_after
      *
-     * @access public
      * @param Varien_Event_Observer $observer
      * @return $this
      */
@@ -304,8 +292,6 @@ class Yireo_NewRelic_Model_Observer
     /**
      * Method to check wether this module can be used or not
      *
-     * @access public
-     * @param null
      * @return bool
      */
     protected function _isEnabled() 
@@ -316,8 +302,6 @@ class Yireo_NewRelic_Model_Observer
     /**
      * Method to return the helper
      *
-     * @access public
-     * @param null
      * @return Yireo_NewRelic_Helper_Data
      */
     protected function _getHelper() 
@@ -328,7 +312,6 @@ class Yireo_NewRelic_Model_Observer
     /**
      * Listen to the cron event always
      *
-     * @access public
      * @param Varien_Event_Observer $observer
      * @return $this
      */
