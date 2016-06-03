@@ -5,14 +5,14 @@
  *
  * @package     Yireo_NewRelic
  * @author      Yireo
- * @copyright   Copyright 2015 Yireo (https://www.yireo.com/)
+ * @copyright   Copyright 2016 Yireo (https://www.yireo.com/)
  * @license     Simplified BSD License
  */
 -->
 <config>
     <modules>
         <Yireo_NewRelic>
-            <version>1.2.4</version>
+            <version>1.2.5</version>
         </Yireo_NewRelic>
     </modules>
 

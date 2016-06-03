@@ -5,7 +5,7 @@
  *
  * @package     Yireo_NewRelic
  * @author      Yireo (https://www.yireo.com/)
- * @copyright   Copyright 2015 Yireo (https://www.yireo.com/)
+ * @copyright   Copyright 2016 Yireo (https://www.yireo.com/)
  * @license     Simplified BSD License
  */
 class Yireo_NewRelic_Model_Profiler
