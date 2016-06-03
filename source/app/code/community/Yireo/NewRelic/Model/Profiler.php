@@ -1,15 +1,24 @@
 <?php
+
 /**
  * NewRelic plugin for Magento
  *
  * @package     Yireo_NewRelic
- * @author      Yireo (http://www.yireo.com/)
- * @copyright   Copyright 2015 Yireo (http://www.yireo.com/)
+ * @author      Yireo (https://www.yireo.com/)
+ * @copyright   Copyright 2015 Yireo (https://www.yireo.com/)
  * @license     Simplified BSD License
  */
-
 class Yireo_NewRelic_Model_Profiler
 {
+    /**
+     * Timers for code profiling
+     *
+     * @var array
+     */
+    static public $_timers = array();
+    static public $_enabled = false;
+    static public $_memory_get_usage = false;
+
     /**
      * Method to initialize the profiler
      *
@@ -17,18 +26,18 @@ class Yireo_NewRelic_Model_Profiler
     public static function init()
     {
         // Do not continue when the PHP-extension "newrelic" is not found
-        if(!extension_loaded('newrelic')) {
+        if (!extension_loaded('newrelic')) {
             return;
         }
 
         // Do not continue when the proper functions are not loaded
-        if(!function_exists('newrelic_add_custom_tracer')) {
+        if (!function_exists('newrelic_add_custom_tracer')) {
             return;
         }
 
         // Add generic NewRelic calls that don't have dependancies on Magento
         static $initialized = false;
-        if($initialized == false) {
+        if ($initialized == false) {
             newrelic_add_custom_tracer('Mage::getModel');
             newrelic_add_custom_tracer('Mage::getSingleton');
             newrelic_add_custom_tracer('Mage::helper');
@@ -45,7 +54,7 @@ class Yireo_NewRelic_Model_Profiler
 
         // Register the Magento request (once it is loaded in Magento) with NewRelic
         static $request_logged = false;
-        if($request_logged == false) {
+        if ($request_logged == false) {
             $request = Mage::app()->getRequest();
             if (!empty($request)) {
                 $request_logged = true;
@@ -60,38 +69,37 @@ class Yireo_NewRelic_Model_Profiler
      * Below is a copy of the original Varien_Profiler class
      * with one exception: the init() method is called from within resume() and pause()
      */
-
-    /**
-     * Timers for code profiling
-     *
-     * @var array
-     */
-    static private $_timers = array();
-    static private $_enabled = false;
-    static private $_memory_get_usage = false;
-
     public static function enable()
     {
         self::$_enabled = true;
         self::$_memory_get_usage = function_exists('memory_get_usage');
     }
 
+    /**
+     *
+     */
     public static function disable()
     {
         self::$_enabled = false;
     }
 
+    /**
+     * @param $timerName
+     */
     public static function reset($timerName)
     {
         self::$_timers[$timerName] = array(
-            'start'=>false,
-            'count'=>0,
-            'sum'=>0,
-            'realmem'=>0,
-            'emalloc'=>0,
+            'start' => false,
+            'count' => 0,
+            'sum' => 0,
+            'realmem' => 0,
+            'emalloc' => 0,
         );
     }
 
+    /**
+     * @param $timerName
+     */
     public static function resume($timerName)
     {
         if (!self::$_enabled) {
@@ -108,14 +116,20 @@ class Yireo_NewRelic_Model_Profiler
             self::$_timers[$timerName]['emalloc_start'] = memory_get_usage();
         }
         self::$_timers[$timerName]['start'] = microtime(true);
-        self::$_timers[$timerName]['count'] ++;
+        self::$_timers[$timerName]['count']++;
     }
 
+    /**
+     * @param $timerName
+     */
     public static function start($timerName)
     {
         self::resume($timerName);
     }
 
+    /**
+     * @param $timerName
+     */
     public static function pause($timerName)
     {
         if (!self::$_enabled) {
@@ -129,22 +143,31 @@ class Yireo_NewRelic_Model_Profiler
         if (empty(self::$_timers[$timerName])) {
             self::reset($timerName);
         }
-        if (false!==self::$_timers[$timerName]['start']) {
-            self::$_timers[$timerName]['sum'] += $time-self::$_timers[$timerName]['start'];
+        if (false !== self::$_timers[$timerName]['start']) {
+            self::$_timers[$timerName]['sum'] += $time - self::$_timers[$timerName]['start'];
             self::$_timers[$timerName]['start'] = false;
             if (self::$_memory_get_usage) {
-                self::$_timers[$timerName]['realmem'] += memory_get_usage(true)-self::$_timers[$timerName]['realmem_start'];
-                self::$_timers[$timerName]['emalloc'] += memory_get_usage()-self::$_timers[$timerName]['emalloc_start'];
+                self::$_timers[$timerName]['realmem'] += memory_get_usage(true) - self::$_timers[$timerName]['realmem_start'];
+                self::$_timers[$timerName]['emalloc'] += memory_get_usage() - self::$_timers[$timerName]['emalloc_start'];
             }
         }
     }
 
+    /**
+     * @param $timerName
+     */
     public static function stop($timerName)
     {
         self::pause($timerName);
     }
 
-    public static function fetch($timerName, $key='sum')
+    /**
+     * @param $timerName
+     * @param string $key
+     *
+     * @return bool|mixed
+     */
+    public static function fetch($timerName, $key = 'sum')
     {
         if (empty(self::$_timers[$timerName])) {
             return false;
@@ -154,8 +177,8 @@ class Yireo_NewRelic_Model_Profiler
         switch ($key) {
             case 'sum':
                 $sum = self::$_timers[$timerName]['sum'];
-                if (self::$_timers[$timerName]['start']!==false) {
-                    $sum += microtime(true)-self::$_timers[$timerName]['start'];
+                if (self::$_timers[$timerName]['start'] !== false) {
+                    $sum += microtime(true) - self::$_timers[$timerName]['start'];
                 }
                 return $sum;
 
@@ -183,6 +206,9 @@ class Yireo_NewRelic_Model_Profiler
         return false;
     }
 
+    /**
+     * @return array
+     */
     public static function getTimers()
     {
         return self::$_timers;
@@ -194,20 +220,20 @@ class Yireo_NewRelic_Model_Profiler
      */
     public static function getSqlProfiler($res)
     {
-        if(!$res){
+        if (!$res) {
             return '';
         }
         $out = '';
         $profiler = $res->getProfiler();
-        if($profiler->getEnabled()) {
-            $totalTime    = $profiler->getTotalElapsedSecs();
-            $queryCount   = $profiler->getTotalNumQueries();
-            $longestTime  = 0;
+        if ($profiler->getEnabled()) {
+            $totalTime = $profiler->getTotalElapsedSecs();
+            $queryCount = $profiler->getTotalNumQueries();
+            $longestTime = 0;
             $longestQuery = null;
 
             foreach ($profiler->getQueryProfiles() as $query) {
                 if ($query->getElapsedSecs() > $longestTime) {
-                    $longestTime  = $query->getElapsedSecs();
+                    $longestTime = $query->getElapsedSecs();
                     $longestQuery = $query->getQuery();
                 }
             }
