@@ -15,9 +15,9 @@ class Yireo_NewRelic_Model_Profiler
      *
      * @var array
      */
-    static public $_timers = array();
-    static public $_enabled = false;
-    static public $_memory_get_usage = false;
+    static private $_timers = array();
+    static private $_enabled = false;
+    static private $_memory_get_usage = false;
 
     /**
      * Method to initialize the profiler
