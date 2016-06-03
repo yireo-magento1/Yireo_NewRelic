@@ -23,7 +23,7 @@ class Yireo_NewRelic_Model_Profiler
      * Method to initialize the profiler
      *
      */
-    public static function init()
+    static public function init()
     {
         // Do not continue when the PHP-extension "newrelic" is not found
         if (!extension_loaded('newrelic')) {
@@ -69,7 +69,7 @@ class Yireo_NewRelic_Model_Profiler
      * Below is a copy of the original Varien_Profiler class
      * with one exception: the init() method is called from within resume() and pause()
      */
-    public static function enable()
+    static public function enable()
     {
         self::$_enabled = true;
         self::$_memory_get_usage = function_exists('memory_get_usage');
@@ -78,7 +78,7 @@ class Yireo_NewRelic_Model_Profiler
     /**
      *
      */
-    public static function disable()
+    static public function disable()
     {
         self::$_enabled = false;
     }
@@ -86,7 +86,7 @@ class Yireo_NewRelic_Model_Profiler
     /**
      * @param $timerName
      */
-    public static function reset($timerName)
+    static public function reset($timerName)
     {
         self::$_timers[$timerName] = array(
             'start' => false,
@@ -100,7 +100,7 @@ class Yireo_NewRelic_Model_Profiler
     /**
      * @param $timerName
      */
-    public static function resume($timerName)
+    static public function resume($timerName)
     {
         if (!self::$_enabled) {
             return;
@@ -122,7 +122,7 @@ class Yireo_NewRelic_Model_Profiler
     /**
      * @param $timerName
      */
-    public static function start($timerName)
+    static public function start($timerName)
     {
         self::resume($timerName);
     }
@@ -130,7 +130,7 @@ class Yireo_NewRelic_Model_Profiler
     /**
      * @param $timerName
      */
-    public static function pause($timerName)
+    static public function pause($timerName)
     {
         if (!self::$_enabled) {
             return;
@@ -156,7 +156,7 @@ class Yireo_NewRelic_Model_Profiler
     /**
      * @param $timerName
      */
-    public static function stop($timerName)
+    static public function stop($timerName)
     {
         self::pause($timerName);
     }
@@ -167,7 +167,7 @@ class Yireo_NewRelic_Model_Profiler
      *
      * @return bool|mixed
      */
-    public static function fetch($timerName, $key = 'sum')
+    static public function fetch($timerName, $key = 'sum')
     {
         if (empty(self::$_timers[$timerName])) {
             return false;
@@ -209,7 +209,7 @@ class Yireo_NewRelic_Model_Profiler
     /**
      * @return array
      */
-    public static function getTimers()
+    static public function getTimers()
     {
         return self::$_timers;
     }
@@ -218,7 +218,7 @@ class Yireo_NewRelic_Model_Profiler
      * Output SQl Zend_Db_Profiler
      *
      */
-    public static function getSqlProfiler($res)
+    static public function getSqlProfiler($res)
     {
         if (!$res) {
             return '';
