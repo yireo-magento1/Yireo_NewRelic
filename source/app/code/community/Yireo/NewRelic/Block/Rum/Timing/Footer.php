@@ -11,12 +11,17 @@
 /**
  * Timing head block adding the rum track html
  */
-class Yireo_NewRelic_Block_Rum_Timing_Footer extends Yireo_NewRelic_Block_Rum_Timing_Abstract 
+class Yireo_NewRelic_Block_Rum_Timing_Footer extends Yireo_NewRelic_Block_Rum_Timing_Abstract
 {
-    public function getContentHtml() 
+    /**
+     * @return string
+     */
+    public function getContentHtml()
     {
-        return (function_exists('newrelic_get_browser_timing_footer'))
-            ? newrelic_get_browser_timing_footer(true)
-            : '';
+        if (!function_exists('newrelic_get_browser_timing_footer')) {
+            return '';
+        }
+
+        return newrelic_get_browser_timing_footer(true);
     }
 }

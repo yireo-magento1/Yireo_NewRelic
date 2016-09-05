@@ -8,21 +8,21 @@
  * @license     Simplified BSD License
  */
 
-class Yireo_NewRelic_Model_Observer 
+/**
+ * Class Yireo_NewRelic_Model_Observer
+ */
+class Yireo_NewRelic_Model_Observer
 {
     /**
      * Listen to the event adminhtml_cache_flush_all
      *
      * @param Varien_Event_Observer $observer
+     *
      * @return $this
+     * @deprecated Use Yireo_NewRelic_Model_Observer_Adminhtml_Cache_FlushAll::execute()
      */
-    public function adminhtmlCacheFlushAll($observer) 
+    public function adminhtmlCacheFlushAll(Varien_Event_Observer $observer)
     {
-        if (!$this->_isEnabled()) {
-            return $this;
-        }
-        
-        newrelic_custom_metric('Magento/Event/adminhtmlCacheFlushAll', (float)1.0);
         return $this;
     }
 
@@ -30,15 +30,12 @@ class Yireo_NewRelic_Model_Observer
      * Listen to the event adminhtml_cache_flush_system
      *
      * @param Varien_Event_Observer $observer
+     *
      * @return $this
+     * @deprecated Use Yireo_NewRelic_Model_Observer_Adminhtml_Cache_FlushSystem::execute()
      */
-    public function adminhtmlCacheFlushSystem($observer) 
+    public function adminhtmlCacheFlushSystem(Varien_Event_Observer $observer)
     {
-        if (!$this->_isEnabled()) {
-            return $this;
-        }
-        
-        newrelic_custom_metric('Magento/Event/adminhtmlCacheFlushSystem', (float)1.0);
         return $this;
     }
 
@@ -46,17 +43,12 @@ class Yireo_NewRelic_Model_Observer
      * Listen to the event adminhtml_cache_refresh_type
      *
      * @param Varien_Event_Observer $observer
+     *
      * @return $this
+     * @deprecated Use Yireo_NewRelic_Model_Observer_Adminhtml_Cache_RefreshType::execute()
      */
-    public function adminhtmlCacheRefreshType($observer) 
+    public function adminhtmlCacheRefreshType(Varien_Event_Observer $observer)
     {
-        if (!$this->_isEnabled()) {
-            return $this;
-        }
-        
-        $event = $observer->getEvent();
-        $refreshType = $event->getType();
-        newrelic_custom_metric('Magento/Event/adminhtmlCacheRefreshType:'.$refreshType, (float)1.0);
         return $this;
     }
 
@@ -64,30 +56,12 @@ class Yireo_NewRelic_Model_Observer
      * Listen to the event controller_action_postdispatch_adminhtml_process_reindexProcess
      *
      * @param Varien_Event_Observer $observer
+     *
      * @return $this
+     * @deprecated Use Yireo_NewRelic_Model_Observer_Adminhtml_Process_ReindexProcess::execute()
      */
-    public function controllerActionPostdispatchAdminhtmlProcessReindexProcess($observer) 
+    public function controllerActionPostdispatchAdminhtmlProcessReindexProcess(Varien_Event_Observer $observer)
     {
-        if (!$this->_isEnabled()) {
-            return $this;
-        }
-        
-        $processIds = (array)Mage::app()->getRequest()->getParam('process');
-        if (!empty($processIds) && is_array($processIds)) {
-            try {
-                $indexer = Mage::getSingleton('index/indexer');
-                foreach ($processIds as $processId) {
-                    $process = $indexer->getProcessById($processId);
-                    $indexerCode = $process->getIndexerCode();
-                    newrelic_custom_metric('Magento/Event/reindex:'.$indexerCode, (float)1.0);
-                }
-
-            } catch (Exception $e) {
-                Mage::logException($e);
-                return $this;
-            }
-        }
-
         return $this;
     }
 
@@ -95,30 +69,12 @@ class Yireo_NewRelic_Model_Observer
      * Listen to the event controller_action_postdispatch_adminhtml_process_massReindex
      *
      * @param Varien_Event_Observer $observer
+     *
      * @return $this
+     * @deprecated Use Yireo_NewRelic_Model_Observer_Adminhtml_Process_ReindexProcess::execute()
      */
-    public function controllerActionPostdispatchAdminhtmlProcessMassReindex($observer) 
+    public function controllerActionPostdispatchAdminhtmlProcessMassReindex(Varien_Event_Observer $observer)
     {
-        if (!$this->_isEnabled()) {
-            return $this;
-        }
-
-        $processIds = (array)Mage::app()->getRequest()->getParam('process');
-        if (!empty($processIds) && is_array($processIds)) {
-            try {
-                $indexer = Mage::getSingleton('index/indexer');
-                foreach ($processIds as $processId) {
-                    $process = $indexer->getProcessById($processId);
-                    $indexerCode = $process->getIndexerCode();
-                    newrelic_custom_metric('Magento/Event/reindex:'.$indexerCode, (float)1.0);
-                }
-
-            } catch (Exception $e) {
-                Mage::logException($e);
-                return $this;
-            }
-        }
-
         return $this;
     }
 
@@ -126,68 +82,12 @@ class Yireo_NewRelic_Model_Observer
      * Listen to the event controller_action_predispatch
      *
      * @param Varien_Event_Observer $observer
-     * @return $this
-     */
-    public function controllerActionPredispatch($observer) 
-    {
-        if (!$this->_isEnabled()) {
-            return $this;
-        }
-
-        $this->_setupAppName();
-        $this->_trackControllerAction($observer->getEvent()->getControllerAction());
-
-        // Ignore Apdex for Magento Admin Panel pages
-        if (Mage::app()->getStore()->isAdmin()) {
-            if(function_exists('newrelic_ignore_apdex')) {
-                newrelic_ignore_apdex();
-            }
-        }
-
-        // Common settings
-        if(function_exists('newrelic_capture_params')) {
-            newrelic_capture_params(true);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Method to setup the app-name
      *
      * @return $this
+     * @deprecated Use Yireo_NewRelic_Model_Observer_Initialise::execute()
      */
-    protected function _setupAppName() 
+    public function controllerActionPredispatch(Varien_Event_Observer $observer)
     {
-        $helper = $this->_getHelper();
-        $appname = trim($helper->getAppName());
-        $license = trim($helper->getLicense());
-        $xmit = $helper->isUseXmit();
-
-        if (!empty($appname) && function_exists('newrelic_set_appname')) {
-            newrelic_set_appname($appname, $license, $xmit);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Method to track the controller-action
-     *
-     * @param Mage_Core_Controller_Front_Action $action
-     * @return $this
-     */
-    protected function _trackControllerAction($action) 
-    {
-        if (!$this->_getHelper()->isTrackController()) {
-            return $this;
-        }
-
-        $actionName = $action->getFullActionName('/');
-        if (function_exists('newrelic_name_transaction')) {
-            newrelic_name_transaction($actionName);
-        }
-
         return $this;
     }
 
@@ -195,54 +95,12 @@ class Yireo_NewRelic_Model_Observer
      * Post dispatch observer for user tracking
      *
      * @param Varien_Event_Observer $observer
+     *
      * @return $this
+     * @deprecated Use Yireo_NewRelic_Model_Observer_AddRequestData::execute()
      */
-    public function controllerActionPostdispatch($observer) 
+    public function controllerActionPostdispatch(Varien_Event_Observer $observer)
     {
-        if (!$this->_isEnabled()) {
-            return $this;
-        }
-
-        // Set generic data
-        newrelic_add_custom_parameter('magento_controller', Mage::getModel('core/url')->getRequest()->getControllerModule());
-        newrelic_add_custom_parameter('magento_request', Mage::getModel('core/url')->getRequest()->getRequestUri());
-        newrelic_add_custom_parameter('magento_store_id', Mage::app()->getStore()->getId());
-
-        // Get customer-data
-        $customer = Mage::getSingleton('customer/session')->getCustomer();
-        $customerName = trim($customer->getName());
-        $customerEmail = trim($customer->getEmail());
-
-        // Correct empty values
-        if (empty($customerName)) $customerName = 'guest';
-        if (empty($customerEmail)) $customerEmail = 'guest';
-
-        // Set customer-data
-        newrelic_add_custom_parameter('magento_customer_email', $customerEmail);
-        newrelic_add_custom_parameter('magento_customer_name', $customerName);
-
-        // Get and set product-data
-        $product = Mage::registry('current_product');
-        if (!empty($product)) {
-            $productSku = $product->getSku();
-            newrelic_add_custom_parameter('magento_product_name', $product->getName());
-            newrelic_add_custom_parameter('magento_product_sku', $product->getSku());
-            newrelic_add_custom_parameter('magento_product_id', $product->getId());
-        } else {
-            $productSku = null;
-        }
-
-        $category = Mage::registry('current_category');
-        if ($category) {
-            newrelic_add_custom_parameter('magento_category_name', $category->getName());
-            newrelic_add_custom_parameter('magento_category_id', $category->getId());
-        }
-
-        // Set user attributes
-        if ($this->_getHelper()->isUseRUM()) {
-            newrelic_set_user_attributes($customerEmail, $customerName, $productSku);
-        }
-
         return $this;
     }
 
@@ -250,20 +108,12 @@ class Yireo_NewRelic_Model_Observer
      * Listen to the event model_save_after
      *
      * @param Varien_Event_Observer $observer
+     *
      * @return $this
+     * @deprecated Use Yireo_NewRelic_Model_Observer_Model_SaveAfter::execute()
      */
-    public function modelSaveAfter($observer) 
+    public function modelSaveAfter(Varien_Event_Observer $observer)
     {
-        if ($this->_isEnabled()) {
-            return $this;
-        }
-
-        if (!function_exists('newrelic_custom_metric')) {
-            return $this;
-        }
-        $object = $observer->getEvent()->getObject();
-        newrelic_custom_metric('Magento/' . get_class($object) . '_Save', (float)1.0);
-
         return $this;
     }
 
@@ -271,54 +121,25 @@ class Yireo_NewRelic_Model_Observer
      * Listen to the event model_delete_after
      *
      * @param Varien_Event_Observer $observer
+     *
      * @return $this
+     * @deprecated Use Yireo_NewRelic_Model_Observer_Model_DeleteAfter::execute()
      */
-    public function modelDeleteAfter($observer) 
+    public function modelDeleteAfter(Varien_Event_Observer $observer)
     {
-        if (!$this->_isEnabled()) {
-            return $this;
-        }
-
-        if (!function_exists('newrelic_custom_metric')) {
-            return $this;
-        }
-
-        $object = $observer->getEvent()->getObject();
-        newrelic_custom_metric('Magento/' . get_class($object) . '_Delete', (float)1.0);
-
         return $this;
-    }
-
-    /**
-     * Method to check wether this module can be used or not
-     *
-     * @return bool
-     */
-    protected function _isEnabled() 
-    {
-        return $this->_getHelper()->isEnabled();
-    }
-
-    /**
-     * Method to return the helper
-     *
-     * @return Yireo_NewRelic_Helper_Data
-     */
-    protected function _getHelper() 
-    {
-        return Mage::helper('newrelic');
     }
 
     /**
      * Listen to the cron event always
      *
      * @param Varien_Event_Observer $observer
+     *
      * @return $this
+     * @deprecated Use Yireo_NewRelic_Model_Observer_Crontab::execute()
      */
-    public function crontab($observer) 
+    public function crontab($observer)
     {
-        if(function_exists('newrelic_background_job')) {
-            newrelic_background_job(true);
-        }
+        return $this;
     }
 }

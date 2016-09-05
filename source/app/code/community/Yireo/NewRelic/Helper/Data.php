@@ -8,14 +8,17 @@
  * @license     Simplified BSD License
  */
 
-class Yireo_NewRelic_Helper_Data extends Mage_Core_Helper_Abstract 
+/**
+ * Class Yireo_NewRelic_Helper_Data
+ */
+class Yireo_NewRelic_Helper_Data extends Mage_Core_Helper_Abstract
 {
     /**
      * Check whether this module can be used
      *
      * @return bool
      */
-    public function isEnabled() 
+    public function isEnabled()
     {
         if ((bool)Mage::getStoreConfig('advanced/modules_disable_output/Yireo_NewRelic')) {
             return false;
@@ -33,7 +36,7 @@ class Yireo_NewRelic_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @return string
      */
-    public function getAppName() 
+    public function getAppName()
     {
         return $this->getConfigValue('appname');
     }
@@ -43,7 +46,7 @@ class Yireo_NewRelic_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @return string
      */
-    public function getLicense() 
+    public function getLicense()
     {
         return $this->getConfigValue('license');
     }
@@ -53,7 +56,7 @@ class Yireo_NewRelic_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @return bool
      */
-    public function isUseXmit() 
+    public function isUseXmit()
     {
         return $this->getConfigFlag('xmit');
     }
@@ -63,7 +66,7 @@ class Yireo_NewRelic_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @return bool
      */
-    public function isTrackController() 
+    public function isTrackController()
     {
         return $this->getConfigFlag('track_controller');
     }
@@ -73,7 +76,7 @@ class Yireo_NewRelic_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @return bool
      */
-    public function isUseRUM() 
+    public function isUseRUM()
     {
         return $this->getConfigFlag('real_user_monitoring');
     }
@@ -83,7 +86,7 @@ class Yireo_NewRelic_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @return bool
      */
-    public function getConfigValue($key = null, $default_value = null) 
+    public function getConfigValue($key = null, $default_value = null)
     {
         $value = Mage::getStoreConfig('newrelic/settings/' . $key);
         if (empty($value)) {
@@ -97,7 +100,7 @@ class Yireo_NewRelic_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @return bool
      */
-    public function getConfigFlag($key = null, $defaultValue = false) 
+    public function getConfigFlag($key = null, $defaultValue = false)
     {
         $result = Mage::getStoreConfigFlag('newrelic/settings/' . $key);
         if (empty($result)) {

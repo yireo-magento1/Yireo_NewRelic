@@ -10,27 +10,37 @@
 
 /**
  * Abstract block for RUM timing blocks
- *
  */
-abstract class Yireo_NewRelic_Block_Rum_Timing_Abstract extends Mage_Core_Block_Template {
-
+abstract class Yireo_NewRelic_Block_Rum_Timing_Abstract extends Mage_Core_Block_Template
+{
+    /**
+     * @return mixed
+     */
     public abstract function getContentHtml();
 
     /**
      * @return Yireo_NewRelic_Helper_Data
      */
-    protected function _getHelper() 
+    protected function _getHelper()
     {
         return Mage::helper('newrelic');
     }
 
-    protected function _canShow() 
+    /**
+     * @return bool
+     */
+    protected function _canShow()
     {
-        return $this->_getHelper()->isEnabled()
-                && $this->_getHelper()->isUseRUM();
+        $isEnabled = $this->_getHelper()->isEnabled();
+        $isUseRUM = $this->_getHelper()->isUseRUM();
+
+        return $isEnabled && $isUseRUM;
     }
 
-    protected function _toHtml()    
+    /**
+     * @return string
+     */
+    protected function _toHtml()
     {
         if (!$this->_canShow()) {
             return '';

@@ -13,10 +13,15 @@
  */
 class Yireo_NewRelic_Block_Rum_Timing_Header extends Yireo_NewRelic_Block_Rum_Timing_Abstract 
 {
+    /**
+     * @return string
+     */
     public function getContentHtml() 
     {
-        return (function_exists('newrelic_get_browser_timing_header'))
-            ? newrelic_get_browser_timing_header(true)
-            : '';
+        if (!function_exists('newrelic_get_browser_timing_header')) {
+            return '';
+        }
+
+        return newrelic_get_browser_timing_header(true);
     }
 }

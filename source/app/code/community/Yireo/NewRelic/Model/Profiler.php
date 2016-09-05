@@ -1,5 +1,4 @@
 <?php
-
 /**
  * NewRelic plugin for Magento
  *
@@ -7,6 +6,10 @@
  * @author      Yireo (https://www.yireo.com/)
  * @copyright   Copyright 2016 Yireo (https://www.yireo.com/)
  * @license     Simplified BSD License
+ */
+
+/**
+ * Class Yireo_NewRelic_Model_Profiler
  */
 class Yireo_NewRelic_Model_Profiler
 {
@@ -16,7 +19,15 @@ class Yireo_NewRelic_Model_Profiler
      * @var array
      */
     static protected $_timers = array();
+
+    /**
+     * @var bool
+     */
     static protected $_enabled = false;
+
+    /**
+     * @var bool
+     */
     static protected $_memory_get_usage = false;
 
     /**

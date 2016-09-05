@@ -12,7 +12,7 @@
 <config>
     <modules>
         <Yireo_NewRelic>
-            <version>1.2.5</version>
+            <version>1.3.0</version>
         </Yireo_NewRelic>
     </modules>
 
@@ -36,89 +36,89 @@
         <events>
             <adminhtml_cache_flush_all>
                 <observers>
-                    <newrelic_adminhtml_cache_flush_all>
+                    <newrelic_log_adminhtml_cache_flush_all>
                         <type>singleton</type>
-                        <class>newrelic/observer</class>
-                        <method>adminhtmlCacheFlushAll</method>
-                    </newrelic_adminhtml_cache_flush_all>
+                        <class>newrelic/observer_adminhtml_cache_flushAll</class>
+                        <method>execute</method>
+                    </newrelic_log_adminhtml_cache_flush_all>
                 </observers>
             </adminhtml_cache_flush_all>
 
             <adminhtml_cache_flush_system>
                 <observers>
-                    <newrelic_adminhtml_cache_flush_system>
+                    <newrelic_log_adminhtml_cache_flush_system>
                         <type>singleton</type>
-                        <class>newrelic/observer</class>
-                        <method>adminhtmlCacheFlushSystem</method>
-                    </newrelic_adminhtml_cache_flush_system>
+                        <class>newrelic/observer_adminhtml_cache_flushSystem</class>
+                        <method>execute</method>
+                    </newrelic_log_adminhtml_cache_flush_system>
                 </observers>
             </adminhtml_cache_flush_system>
 
             <adminhtml_cache_refresh_type>
                 <observers>
-                    <newrelic_adminhtml_cache_refresh_type>
+                    <newrelic_log_adminhtml_cache_refresh_type>
                         <type>singleton</type>
-                        <class>newrelic/observer</class>
-                        <method>adminhtmlCacheRefreshType</method>
-                    </newrelic_adminhtml_cache_refresh_type>
+                        <class>newrelic/observer_adminhtml_cache_refreshType</class>
+                        <method>execute</method>
+                    </newrelic_log_adminhtml_cache_refresh_type>
                 </observers>
             </adminhtml_cache_refresh_type>
 
             <controller_action_postdispatch_adminhtml_process_massReindex>
                 <observers>
-                    <newrelic_controller_action_postdispatch_adminhtml_process_massReindex>
-                        <class>newrelic/observer</class>
-                        <method>controllerActionPostdispatchAdminhtmlProcessMassReindex</method>
-                    </newrelic_controller_action_postdispatch_adminhtml_process_massReindex>
+                    <newrelic_log_controller_action_postdispatch_adminhtml_process_massReindex>
+                        <class>newrelic/observer_adminhtml_process_massReindex</class>
+                        <method>execute</method>
+                    </newrelic_log_controller_action_postdispatch_adminhtml_process_massReindex>
                 </observers>
             </controller_action_postdispatch_adminhtml_process_massReindex>
 
             <controller_action_postdispatch_adminhtml_process_reindexProcess>
                 <observers>
-                    <newrelic_controller_action_postdispatch_adminhtml_process_reindexProcess>
-                        <class>newrelic/observer</class>
-                        <method>controllerActionPostdispatchAdminhtmlProcessReindexProcess</method>
-                    </newrelic_controller_action_postdispatch_adminhtml_process_reindexProcess>
+                    <newrelic_log_controller_action_postdispatch_adminhtml_process_reindexProcess>
+                        <class>newrelic/observer_adminhtml_process_reindexProcess</class>
+                        <method>execute</method>
+                    </newrelic_log_controller_action_postdispatch_adminhtml_process_reindexProcess>
                 </observers>
             </controller_action_postdispatch_adminhtml_process_reindexProcess>
 
             <controller_action_predispatch>
                 <observers>
-                    <newrelic_controller_action_predispatch>
+                    <newrelic_initialise>
                         <type>singleton</type>
-                        <class>newrelic/observer</class>
-                        <method>controllerActionPredispatch</method>
-                    </newrelic_controller_action_predispatch>
+                        <class>newrelic/observer_initialise</class>
+                        <method>execute</method>
+                    </newrelic_initialise>
                 </observers>
             </controller_action_predispatch>
 
             <controller_action_postdispatch>
                 <observers>
-                    <newrelic_controller_action_postdispatch>
+                    <newrelic_addRequestData>
                         <type>singleton</type>
-                        <class>newrelic/observer</class>
-                        <method>controllerActionPostdispatch</method>
-                    </newrelic_controller_action_postdispatch>
+                        <class>newrelic/observer_addRequestData</class>
+                        <method>execute</method>
+                    </newrelic_addRequestData>
                 </observers>
             </controller_action_postdispatch>
 
             <model_save_after>
                 <observers>
-                    <newrelic_model_save_after>
+                    <newrelic_log_model_save_after>
                         <type>singleton</type>
-                        <class>Yireo_NewRelic_Model_Observer</class>
-                        <method>modelSaveAfter</method>
-                    </newrelic_model_save_after>
+                        <class>Yireo_NewRelic_Model_Observer_Model_SaveAfter</class>
+                        <method>execute</method>
+                    </newrelic_log_model_save_after>
                 </observers>
             </model_save_after>
 
             <model_delete_after>
                 <observers>
-                    <newrelic_model_delete_after>
+                    <newrelic_log_model_delete_after>
                         <type>singleton</type>
-                        <class>Yireo_NewRelic_Model_Observer</class>
-                        <method>modelDeleteAfter</method>
-                    </newrelic_model_delete_after>
+                        <class>Yireo_NewRelic_Model_Observer_Model_DeleteAfter</class>
+                        <method>execute</method>
+                    </newrelic_log_model_delete_after>
                 </observers>
             </model_delete_after>
         </events>
@@ -161,8 +161,8 @@
             <always>
                 <observers>
                     <newrelic_cron_observer>
-                        <class>newrelic/observer</class>
-                        <method>crontab</method>
+                        <class>newrelic/observer_crontab</class>
+                        <method>execute</method>
                     </newrelic_cron_observer>
                 </observers>
             </always>
