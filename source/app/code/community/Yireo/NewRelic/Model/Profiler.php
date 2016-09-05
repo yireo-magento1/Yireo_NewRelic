@@ -70,7 +70,7 @@ class Yireo_NewRelic_Model_Profiler
             if (!empty($request)) {
                 $request_logged = true;
                 if (function_exists('newrelic_name_transaction')) {
-                    newrelic_name_transaction($request->getRequestUri());
+                    newrelic_name_transaction(Mage::helper('newrelic')->getSystemPath());
                 }
             }
         }

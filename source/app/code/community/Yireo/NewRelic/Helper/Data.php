@@ -32,6 +32,18 @@ class Yireo_NewRelic_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * @return string
+     */
+    public function getSystemPath()
+    {
+        $moduleName = Mage::app()->getRequest()->getModuleName();
+        $controllerName = Mage::app()->getRequest()->getControllerName();
+        $actionName = Mage::app()->getRequest()->getActionName();
+
+        return $moduleName . '/' . $controllerName . '/' . $actionName;
+    }
+
+    /**
      * Return the appname
      *
      * @return string

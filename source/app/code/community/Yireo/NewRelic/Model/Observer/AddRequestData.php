@@ -38,7 +38,7 @@ class Yireo_NewRelic_Model_Observer_AddRequestData extends Yireo_NewRelic_Model_
      */
     public function __construct()
     {
-        $this->request = Mage::getModel('core/url')->getRequest();
+        $this->request = Mage::app()->getRequest();
         $this->store = Mage::app()->getStore();
         $this->customerSession = Mage::getSingleton('customer/session');
     }
@@ -71,8 +71,10 @@ class Yireo_NewRelic_Model_Observer_AddRequestData extends Yireo_NewRelic_Model_
      */
     protected function logGenericData()
     {
-        newrelic_add_custom_parameter('magento_controller', $this->request->getRequest()->getControllerModule());
-        newrelic_add_custom_parameter('magento_request', $this->request->getRequest()->getRequestUri());
+        newrelic_add_custom_parameter('magento_url', $this->request->getOriginalPathInfo());
+        newrelic_add_custom_parameter('magento_module', $this->request->getModuleName());
+        newrelic_add_custom_parameter('magento_controller', $this->request->getControllerName());
+        newrelic_add_custom_parameter('magento_request', $this->request->getRequestUri());
         newrelic_add_custom_parameter('magento_store_id', $this->store->getId());
     }
 

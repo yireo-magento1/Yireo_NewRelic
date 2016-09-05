@@ -45,9 +45,8 @@ class Yireo_NewRelic_Model_Observer_Generic
             return $this;
         }
 
-        $actionName = $action->getFullActionName('/');
         if (function_exists('newrelic_name_transaction')) {
-            newrelic_name_transaction($actionName);
+            newrelic_name_transaction($this->_getHelper()->getSystemPath());
         }
 
         return $this;
