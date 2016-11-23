@@ -11,7 +11,7 @@
 -->
 <config>
     <tabs>
-        <yireo translate="label" module="emailtester">
+        <yireo translate="label" module="newrelic">
             <label>Yireo</label>
             <sort_order>1000</sort_order>
         </yireo>
